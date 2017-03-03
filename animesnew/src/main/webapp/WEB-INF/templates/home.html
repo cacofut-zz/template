@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" th:href="@{/resources/style.css}"></link>
+
+<title>Insert title here</title>
+</head>
+<body>
+
+	
+	<div sec:authorize="isAuthenticated()">
+		Olá <span sec:authentication="name">someone</span>
+	</div>
+	
+	<span sec:authorize-url="/admin">
+		<br/><a th:href="@{/admin}">Admin</a>
+	</span>
+	
+	
+	<h1>Bem vindo ao Spring Framework</h1>
+	
+	<a th:href="@{/naruto/listar}">Listar Naruto</a>
+	<a th:href="@{/naruto/Registrar}">Registrar Naruto</a>
+	
+	<a th:href="@{/logout}">Logout</a>
+	
+</body>
+</html>
