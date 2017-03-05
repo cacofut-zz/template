@@ -11,7 +11,7 @@ public class TestPasswordEncoder {
 		
 		while( i < 10 ){
 			
-			String password = "12345689";
+			String password = "123456789";
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			String hash = passwordEncoder.encode( password );
 			System.out.println( hash );

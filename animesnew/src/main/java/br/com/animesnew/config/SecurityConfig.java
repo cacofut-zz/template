@@ -60,9 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.usernameParameter( "usuario" )
 			.passwordParameter( "senha" )
 		.and()
-			.exceptionHandling().accessDeniedPage( "/403" )
-			
-			
+		.exceptionHandling().accessDeniedPage( "/403" )		
 		.and()
 			.logout()
 				.logoutUrl( "/logout" )
@@ -77,8 +75,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.and()
 			.authorizeRequests()
 				.antMatchers( "/admin/**" ).hasRole( "ADMIN" )
-				.antMatchers( "/autenticado/**" ).authenticated()				
-				.anyRequest().permitAll();
+				.antMatchers( "/autenticado/**" ).authenticated()
+				.anyRequest().permitAll()
+			.and()
+			.requiresChannel()
+				.antMatchers("/login*").requiresSecure()
+				.antMatchers("/admin/**").requiresSecure()
+				.anyRequest().requiresInsecure();
 								
 	}
 	

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
-@Import({ DataConfig.class, SecurityConfig.class })
+@Import({ DataConfig.class, CachingConfig.class, SecurityConfig.class })
 @ComponentScan(basePackages = { "br.com.animesnew" }, excludeFilters = {
 		@Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class) })
 public class RootConfig {

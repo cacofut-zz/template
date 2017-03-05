@@ -9,13 +9,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.jndi.JndiObjectFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-@ComponentScan("br.com.animesnew.data")
+@ComponentScan("br.com.animesnew.model")
 public class DataConfig {
 
 	@Profile("development")
@@ -28,19 +31,27 @@ public class DataConfig {
 		dataSource.setPassword("41042075-x");
 		return dataSource;
 	}
-	
-	
+
 	@Profile("production")
 	@Bean
 	public DataSource dataProduction() throws IllegalArgumentException, NamingException {
 		JndiObjectFactoryBean jndiObjectFactoryBean = new JndiObjectFactoryBean();
 		jndiObjectFactoryBean.setJndiName("jdbc/salaoDoReino");
 		jndiObjectFactoryBean.setResourceRef(true);
-		jndiObjectFactoryBean.setProxyInterface( DataSource.class);
+		jndiObjectFactoryBean.setProxyInterface(DataSource.class);
 		jndiObjectFactoryBean.afterPropertiesSet();
-		
+
 		return (DataSource) jndiObjectFactoryBean.getObject();
 	}
-	
+
+	@Bean
+	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+		return new JdbcTemplate(dataSource);
+	}
+
+	@Bean
+	public PlatformTransactionManager transactionManager(DataSource dataSource) {
+		return new DataSourceTransactionManager(dataSource);
+	}
 
 }

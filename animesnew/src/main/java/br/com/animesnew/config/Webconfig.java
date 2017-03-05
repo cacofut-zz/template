@@ -4,12 +4,16 @@ import java.io.IOException;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
+import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.expression.common.TemplateAwareExpressionParser;
 import org.springframework.ui.freemarker.SpringTemplateLoader;
 import org.springframework.web.multipart.MultipartResolver;
@@ -40,15 +44,6 @@ public class Webconfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	public void setApplicationContext(ApplicationContext applicationContext ) throws BeansException {
 		this.applicationContext = applicationContext; 
 	}
-	
-	/*@Bean
-	public ViewResolver internalViewResolver(){
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setPrefix( "/WEB-INF/views/" );
-		resolver.setSuffix( ".jsp" );
-		resolver.setExposeContextBeansAsAttributes( true );
-		return resolver;
-	}*/
 	
 	
 	@Bean
@@ -89,7 +84,6 @@ public class Webconfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	public MultipartResolver multipartResolver() throws IOException{
 		return new StandardServletMultipartResolver();
 	}
-	
 	
 	
 }

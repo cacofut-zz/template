@@ -19,9 +19,44 @@
 		<spring-security-versao>4.0.4.RELEASE</spring-security-versao>
 		<thymeleaf-spring-security-versao>3.0.0.RELEASE</thymeleaf-spring-security-versao>
 		<h2database-versao>1.4.191</h2database-versao>
+		<mysql-versao>5.1.38</mysql-versao>
+		<ehcache-jcache-versao>1.5.0-0.5</ehcache-jcache-versao>
+		<ehcache-versao>2.10.3</ehcache-versao>
+		<java-cache-versao>1.0.0</java-cache-versao>
 	</properties>
 
 	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/javax.cache/cache-api -->
+		<dependency>
+			<groupId>javax.cache</groupId>
+			<artifactId>cache-api</artifactId>
+			<version>${java-cache-versao}</version>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache-jcache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-jcache</artifactId>
+			<version>${ehcache-jcache-versao}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>${ehcache-versao}</version>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-versao}</version>
+		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
 		<dependency>
