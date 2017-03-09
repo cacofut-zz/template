@@ -22,6 +22,8 @@ public class JdbcUsuarioRepositorio implements UsuarioRepositorio {
 	private static final String SELECT_ALL_USUARIOS = "select "+ ALL_COLUMNS +" from user";
 	private static final String SELECT_BY_ID_USUARIO = "select "+ ALL_COLUMNS +" from user where id_user = ?";
 	private static final String UPDATE_USUARIO = "update user set usuario_user=?, senha_user=?, ativo_user=? where id_user=?";
+	private static final String DELETE_USUARIO = "delete from user where id_user=?";
+	private static final String SELECT_USER_BY_USERNAME = "select " + ALL_COLUMNS + " from user where usuario_user = ?";
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -67,7 +69,7 @@ public class JdbcUsuarioRepositorio implements UsuarioRepositorio {
 	}
 
 	public boolean delete(Usuario objeto) {
-		// TODO Auto-generated method stub
+		//return jdbcTemplate.update( DELETE_USUARIO, objeto.getId() ) == 1;
 		return false;
 	}
 
@@ -77,7 +79,23 @@ public class JdbcUsuarioRepositorio implements UsuarioRepositorio {
 	}
 
 	public Usuario findOne(long id) {
+		System.out.println( "findOne()" );
 		return jdbcTemplate.queryForObject( SELECT_BY_ID_USUARIO, new UsuarioRowMapper(), id );
+	}
+
+	public Usuario findByUserName(String username) {
+		System.out.println( "findByUserName()" );
+		return jdbcTemplate.queryForObject( SELECT_USER_BY_USERNAME, new UsuarioRowMapper(), username );
+	}
+
+	public boolean desativaUsuario(long id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean ativaUsuario(long id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

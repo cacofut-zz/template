@@ -25,9 +25,8 @@ public class UsuarioRepositorioTest {
 	private UsuarioService usarioService;
 
 	// @Test
-	@Transactional
+	// @Transactional
 	public void teste() {
-
 		Usuario teste = new Usuario("juquinha", "123456", true);
 		usarioService.save(teste);
 	}
@@ -49,6 +48,42 @@ public class UsuarioRepositorioTest {
 
 		}
 		System.out.println();
+
+		Usuario teste = new Usuario("outroteste", "123456", true);
+		teste = usarioService.save(teste);
+
+		List<Usuario> lista3 = usarioService.list();
+		for (Usuario usuario : lista3) {
+			System.out.println(usuario);
+		}
+
+		System.out.println();
+
+		System.out.println(usarioService.find(teste.getId()));
+		System.out.println(usarioService.find(teste.getId()));
+
+		System.out.println();
+
+		System.out.println( usarioService.delete( teste ) );
+
+		System.out.println();
+
+		List<Usuario> lista4 = usarioService.list();
+		for (Usuario usuario : lista4) {
+			System.out.println(usuario);
+		}
+
+		System.out.println();
+
+		List<Usuario> lista5 = usarioService.list();
+		for (Usuario usuario : lista5) {
+			System.out.println(usuario);
+		}
+		
+		System.out.println();
+		
+		System.out.println( usarioService.findByUserName( "cristiano" ) );
+		System.out.println( usarioService.findByUserName( "cristiano" ) );
 
 	}
 
