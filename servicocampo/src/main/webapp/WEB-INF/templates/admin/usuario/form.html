@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:include="page :: styles-global"></head>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>cadastro de usuários</title>
+</head>
+<body>
+
+	<div id="header" th:include="page :: header"></div>
+	
+	<div class="container-fluid">
+	<h1>[[${title}]]</h1>
+
+		<form action="adicionar" th:action="@{/admin/usuario/adicionar}"
+			method="POST" th:object="${usuario}">
+			<div class="form-group">
+				<div class="errors" th:if="${#fields.hasErrors('*')}">
+					<ul>
+						<li th:each="err : ${#fields.errors('*')}" th:text="${err}">
+							Entrada incorreta</li>
+					</ul>
+				</div>
+	
+				<label>Usuário</label> 
+				<input type="text" th:field="*{usuario}" th:class="${#fields.hasErrors('usuario')}?'error form-control':'form-control'" /> 
+				<label>Senha</label>
+				<input type="text" th:field="*{senha}" th:class="${#fields.hasErrors('senha')}?'error form-control':'form-control'" />
+				<input	type="hidden" th:field="*{id}" /> 
+				<button type="submit" class="btn btn-default">Salvar</button>
+			</div>
+		</form>
+	</div>
+	<div id="scripts" th:include="page :: scripts"></div>
+</body>
+</html>
