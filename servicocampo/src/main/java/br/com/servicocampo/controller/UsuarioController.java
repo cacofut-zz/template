@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -17,51 +18,48 @@ import br.com.servicocampo.model.Usuario;
 import br.com.servicocampo.web.service.UsuarioService;
 
 @Controller
-@RequestMapping( value = "/admin/usuario" )
+@RequestMapping(value = "/admin/usuario")
 public class UsuarioController {
-	
-	@Autowired
+
 	private UsuarioService usuarioService;
 
-	@RequestMapping( value = "/form", method = RequestMethod.GET )
-	public String form( @RequestParam( value="id", required=false ) Long id, Model model ){	
+	@Autowired
+	public UsuarioController(UsuarioService usuarioService ) {
+		this.usuarioService = usuarioService;
+	}
+
+	@RequestMapping(value = "/form", method = RequestMethod.GET)
+	public String form(@RequestParam(value = "id", required = false) Long id, Model model) {
 		Usuario usuario = null;
-		String title    = "";
-		if( id == null ){
+		if (id == null) {
 			usuario = new Usuario();
-			title   = "Cadastro de Usuário";
+		} else {
+			usuario = usuarioService.findOne(id);
 		}
-		else{
-			usuario = usuarioService.findOne( id );
-			title   = "Alteração de Usuário";
-		}
-		
-		model.addAttribute( "usuario", usuario );
-		model.addAttribute( "title", title );
+		model.addAttribute("usuario", usuario);
 		return "admin/usuario/form";
 	}
-	
-	@RequestMapping( value = "/adicionar", method = RequestMethod.POST )   
-	public String adicionar( @Valid Usuario usuario, Errors erros ){
-		
-		if( erros.hasErrors() ){
+
+	@RequestMapping(value = "/adicionar", method = RequestMethod.POST)
+	public String adicionar(@Valid Usuario usuario, Errors erros) {
+
+		if (erros.hasErrors()) {
 			return "admin/usuario/form";
 		}
-		usuarioService.save( usuario );
+		usuarioService.save(usuario);
 		return "redirect:/admin/usuario/list";
 	}
-	
-	@RequestMapping( value = "/list", method = RequestMethod.GET )
-	public String list( Model model ){		
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String list(Model model) {
 		List<Usuario> usuarios = usuarioService.list();
-		model.addAttribute( "usuarios", usuarios );
+		model.addAttribute("usuarios", usuarios);
 		return "/admin/usuario/list";
 	}
-	
-	
-	@RequestMapping( value = "/excluir/{id}", method = RequestMethod.GET )
-	public String delete( @PathVariable Long id ){
-		usuarioService.delete( id );
+
+	@RequestMapping(value = "/excluir/{id}", method = RequestMethod.GET)
+	public String delete(@PathVariable Long id) {
+		usuarioService.delete(id);
 		return "redirect:/admin/usuario/list";
 	}
 }

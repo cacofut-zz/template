@@ -14,7 +14,9 @@
 </head>
 
 <body>
-
+	<div th:with="urlLocal=${#httpServletRequest.requestURI}">
+	
+	
 	<!-- inicioi header -->
 	<div th:fragment="header">
 	 <header>
@@ -64,7 +66,8 @@
 								<li><a href="#">Something else here</a></li>
 								<li role="separator" class="divider"></li>
 								<li><a href="#">Separated link</a></li>
-							</ul></li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
